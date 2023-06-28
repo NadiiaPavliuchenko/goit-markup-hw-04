@@ -111,12 +111,11 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   background-color: var(--primary-iris-color);
   border-radius: 50%;
-  transition-property: background-color;
-  transition: var(--transition);
+  transition: background-color var(--transition);
 }
 .button {
   font-family: inherit;
@@ -163,8 +162,7 @@ img {
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: 0.02em;
-  transition-property: color;
-  transition: var(--transition);
+  transition: color var(--transition);
 }
 .header-link:hover,
 .header-link:focus {
@@ -180,11 +178,14 @@ img {
   font-weight: 500;
   padding: 24px 0;
 }
+.nav-link.active {
+  color: var(--primary-ocean-color);
+}
 .nav-link.active::after {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -1px;
   content: "";
   height: 4px;
   background-color: var(--primary-ocean-color);
@@ -199,9 +200,10 @@ img {
 .hero {
   background-color: var(--primary-blue-color);
   padding: 188px 0;
+  max-width: 1440px;
   background-image: var(--gradient), url(../images/hero-bg.jpg);
   background-repeat: no-repeat;
-  background-size: 1440px;
+  background-size: cover;
   background-position: center;
 }
 .hero-title {
@@ -223,61 +225,11 @@ img {
   margin: 0 auto;
   min-width: 169px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
-  transition-property: background-color;
-  transition: var(--transition);
+  transition: background-color var(--transition);
 }
 .hero-btn:hover,
 .hero-btn:focus {
   background-color: var(--primary-ocean-color);
-}
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--primary-backdrop-color);
-  visibility: visible;
-  opacity: 1;
-  pointer-events: initial;
-
-  transition: opacity var(--transition), visibility var(--transition);
-}
-.backdrop.is-hidden {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 408px;
-  height: 584px;
-  border-radius: 4px;
-  background: var(--primary-modal-color);
-  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
-  transform: translate(-50%, -50%);
-
-  transition: opacity var(--transition) 250ms, transform var(--transition) 250ms;
-}
-.backdrop.is-hidden .modal {
-  opacity: 0;
-  transform: translate(-50%, 30%);
-}
-.close-btn {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
-  border: 1px solid var(--modal-close-color);
-  background: var(--primary-cornflower-color);
 }
 
 /*advantages section*/
@@ -312,13 +264,17 @@ img {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 32px 16px;
+  padding: 32px 0;
 }
 .card-networks {
   display: flex;
+  justify-content: center;
   gap: 24px;
 }
-
+.network-item {
+  width: 40px;
+  height: 40px;
+}
 .team-circle:hover,
 .team-circle:focus {
   background-color: var(--primary-ocean-color);
@@ -334,23 +290,29 @@ img {
   gap: 24px;
 }
 .client-item {
+  width: clac((100% - 5 * 24px)/6);
+  height: 88px;
+}
+.client-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--primary-grey-color);
   border-radius: 4px;
   border: 1px solid var(--primary-grey-color);
   padding: 16px 32px;
-  transition-property: border-color;
-  transition: var(--transition);
+  transition: border-color var(--transition), color var(--transition);
 }
 .client-logo {
-  fill: var(--primary-grey-color);
-  transition-property: fill;
-  transition: var(--transition);
+  fill: currentColor;
 }
-.client-item:hover {
+.client-link:hover {
   border-color: var(--primary-ocean-color);
+  color: var(--primary-ocean-color);
 }
-.client-item:hover .client-logo {
-  fill: var(--primary-ocean-color);
-}
+
 /*footer*/
 .footer {
   background-color: var(--primary-blue-color);
@@ -358,6 +320,7 @@ img {
 }
 .footer-container {
   display: flex;
+  align-items: baseline;
 }
 .footer-slogan {
   margin-right: 120px;
@@ -381,9 +344,81 @@ img {
   letter-spacing: 0.32px;
   margin-bottom: 16px;
 }
+.networks-list {
+  display: flex;
+  gap: 16px;
+}
+.footer-icon {
+  fill: var(--primary-cloud-color);
+}
 .footer-circle:hover,
 .footer-circle:focus {
   background-color: var(--primary-green-color);
+}
+
+/* modal */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-backdrop-color);
+  visibility: visible;
+  opacity: 1;
+  pointer-events: initial;
+
+  transition: opacity var(--transition), visibility var(--transition);
+}
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 408px;
+  min-height: 584px;
+  border-radius: 4px;
+  background: var(--primary-modal-color);
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+  transform: translate(-50%, -50%) scale(1);
+
+  transition: transform var(--transition);
+}
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, 30%);
+}
+.close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--modal-close-color);
+  background: var(--primary-cornflower-color);
+  transition: background-color var(--transition), border var(--transition);
+}
+.close {
+  fill: var(--primary-blue-color);
+  transition: fill var(--transition);
+}
+.close-btn:hover,
+.close-btn:focus {
+  background-color: var(--primary-ocean-color);
+  border: none;
+}
+.close-btn:hover .close,
+.close-btn:focus .close {
+  fill: var(--primary-white-color);
 }
 
 /*portfolio*/
@@ -399,8 +434,8 @@ img {
   width: auto;
   height: auto;
   padding: 12px 24px;
-  transition-property: background-color, color, border, box-shadow;
-  transition: var(--transition);
+  transition: background-color var(--transition), color var(--transition),
+    border var(--transition), box-shadow var(--transition);
 }
 .portfolio-btn:hover,
 .portfolio-btn:focus {
@@ -422,8 +457,7 @@ img {
   padding: 0;
 }
 .portfolio-item {
-  transition-property: box-shadow;
-  transition: var(--transition);
+  transition: box-shadow var(--transition);
 }
 .portfolio-item:hover,
 .portfolio-item:focus {
@@ -442,8 +476,7 @@ img {
   top: 0;
   left: 0;
   transform: translateY(100%);
-  transition-property: transform;
-  transition: var(--transition);
+  transition: transform var(--transition);
   background-color: var(--primary-iris-color);
   color: var(--primary-cloud-color);
   font-size: 16px;
