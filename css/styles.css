@@ -275,6 +275,9 @@ img {
   width: 40px;
   height: 40px;
 }
+.networks-icon {
+  fill: var(--primary-cloud-color);
+}
 .team-circle:hover,
 .team-circle:focus {
   background-color: var(--primary-ocean-color);
@@ -290,7 +293,7 @@ img {
   gap: 24px;
 }
 .client-item {
-  width: clac((100% - 5 * 24px)/6);
+  width: calc((100% - 120px) / 6);
   height: 88px;
 }
 .client-link {
@@ -308,7 +311,8 @@ img {
 .client-logo {
   fill: currentColor;
 }
-.client-link:hover {
+.client-link:hover,
+.client-link:focus {
   border-color: var(--primary-ocean-color);
   color: var(--primary-ocean-color);
 }
